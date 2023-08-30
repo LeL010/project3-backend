@@ -33,6 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       reservationDate: DataTypes.DATE, //Timestamp format
       numOfGuests: DataTypes.INTEGER,
+      remarks: DataTypes.TEXT,
     },
     {
       sequelize,

@@ -11,13 +11,19 @@ const ReservationsRouter = require("./routers/reservationRouter");
 const ReservationsController = require("./controllers/reservationController");
 
 const PORT = process.env.PORT || 3000;
-
 const app = express();
+const { auth } = require("express-oauth2-jwt-bearer");
+
+const checkJwt = auth({
+  audience: "https://bookit/api",
+  issuerBaseURL: "https://dev-4rxclp7pj6nst5op.us.auth0.com/",
+});
 
 const usersController = new UsersController(user);
-const usersRouter = new UsersRouter(express, usersController).routes();
+const usersRouter = new UsersRouter(express, usersController, checkJwt).routes();
+
 const reservationsController = new ReservationsController(reservation);
-const reservationsRouter = new ReservationsRouter(express, reservationsController).routes();
+const reservationsRouter = new ReservationsRouter(express, reservationsController, checkJwt).routes();
 
 app.use(cors());
 app.use(express.json());

@@ -7,12 +7,13 @@ class ReservationsController extends BaseController {
   }
 
   async insertOne(req, res) {
-    const { reservationDate, numOfGuests, userId } = req.body;
+    const { reservationDate, numOfGuests, remarks, userId } = req.body;
     const { restaurantId } = req.params;
     try {
       const newReservation = await this.model.create({
         reservationDate: reservationDate,
         numOfGuests: numOfGuests,
+        remarks: remarks,
         userId: userId,
         restaurantId: restaurantId,
       });

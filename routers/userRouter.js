@@ -1,7 +1,8 @@
 class UsersRouter {
-  constructor(express, controller) {
+  constructor(express, controller, checkJwt) {
     this.express = express;
     this.controller = controller;
+    this.checkJwt = checkJwt;
   }
 
   routes() {

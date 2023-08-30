@@ -29,6 +29,9 @@ module.exports = {
       numOfGuests: {
         type: Sequelize.INTEGER,
       },
+      remarks: {
+        type: Sequelize.TEXT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

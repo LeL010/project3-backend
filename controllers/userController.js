@@ -1,18 +1,17 @@
 const BaseController = require("./baseController");
 
-class ReservationsController extends BaseController {
+class UsersController extends BaseController {
   constructor(model, userModel) {
     super(model);
     this.userModel = userModel;
   }
 
   async insertOne(req, res) {
-    const { username, email, password } = req.body;
+    const { username, email } = req.body;
     try {
       const newUser = await this.model.create({
         username: username,
         email: email,
-        password: password,
       });
       return res.json(newUser);
     } catch (err) {
@@ -32,4 +31,4 @@ class ReservationsController extends BaseController {
   }
 }
 
-module.exports = ReservationsController;
+module.exports = UsersController;
