@@ -1,9 +1,8 @@
 const BaseController = require("./baseController");
 
 class UsersController extends BaseController {
-  constructor(model, userModel) {
+  constructor(model) {
     super(model);
-    this.userModel = userModel;
   }
 
   async insertOne(req, res) {

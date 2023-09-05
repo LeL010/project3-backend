@@ -7,16 +7,25 @@ class ReservationsController extends BaseController {
   }
 
   async insertOne(req, res) {
-    const { reservationDate, numOfGuests, remarks, userId } = req.body;
+    const { reservationDate, numOfGuests, remarks, userEmail, userName } = req.body;
     const { restaurantId } = req.params;
     try {
+      const [user] = await this.userModel.findOrCreate({
+        where: { email: userEmail },
+        defaults: {
+          username: userName,
+          email: userEmail,
+        },
+      });
+
       const newReservation = await this.model.create({
         reservationDate: reservationDate,
         numOfGuests: numOfGuests,
         remarks: remarks,
-        userId: userId,
+        userId: user.id,
         restaurantId: restaurantId,
       });
+      
       return res.json(newReservation);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
