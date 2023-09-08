@@ -28,7 +28,7 @@ const usersRouter = new UsersRouter(
   checkJwt
 ).routes();
 
-const reservationsController = new ReservationsController(reservation, user);
+const reservationsController = new ReservationsController(reservation, user, restaurant);
 const reservationsRouter = new ReservationsRouter(
   express,
   reservationsController,

@@ -1,13 +1,15 @@
 const BaseController = require("./baseController");
 
 class ReservationsController extends BaseController {
-  constructor(model, userModel) {
+  constructor(model, userModel, restaurantModel) {
     super(model);
     this.userModel = userModel;
+    this.restaurantModel = restaurantModel;
   }
 
   async insertOne(req, res) {
-    const { reservationDate, numOfGuests, remarks, userEmail, userName } = req.body;
+    const { reservationDate, numOfGuests, remarks, userEmail, userName } =
+      req.body;
     const { restaurantId } = req.params;
     try {
       const [user] = await this.userModel.findOrCreate({
@@ -25,7 +27,7 @@ class ReservationsController extends BaseController {
         userId: user.id,
         restaurantId: restaurantId,
       });
-      
+
       return res.json(newReservation);
     } catch (err) {
       return res.status(400).json({ error: true, msg: err });
@@ -37,6 +39,31 @@ class ReservationsController extends BaseController {
     try {
       const output = await this.model.findByPk(id);
       return res.json(output);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async getAll(req, res) {
+    const userEmail = req.query.email;
+    try {
+      //Identify the currently logged in user
+      const [user] = await this.userModel.findOrCreate({
+        where: { email: userEmail },
+        defaults: {
+          email: userEmail,
+        },
+      });
+
+      const getAllReservations = await this.model.findAll({
+        where: {
+          userId: user.id,
+        },
+        include: this.restaurantModel,
+      });
+
+      return res.json(getAllReservations);
     } catch (err) {
       console.log(err);
       return res.status(400).json({ error: true, msg: err });
