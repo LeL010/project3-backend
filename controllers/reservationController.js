@@ -61,6 +61,7 @@ class ReservationsController extends BaseController {
           userId: user.id,
         },
         include: this.restaurantModel,
+        order: [["updatedAt", "DESC"]],
       });
 
       return res.json(getAllReservations);
