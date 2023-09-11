@@ -22,6 +22,11 @@ class ReservationsRouter {
       this.checkJwt,
       this.controller.insertOne.bind(this.controller)
     );
+    router.put(
+      "/:reservationId",
+      this.checkJwt,
+      this.controller.updateOne.bind(this.controller)
+    );
     router.delete(
       "/:reservationId",
       this.checkJwt,

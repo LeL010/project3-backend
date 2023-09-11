@@ -71,6 +71,27 @@ class ReservationsController extends BaseController {
     }
   }
 
+  async updateOne(req, res) {
+    const id = req.params.reservationId;
+    const { reservationDate, numOfGuests, remarks } = req.body;
+
+    try {
+      const updateReservation = await this.model.update(
+        {
+          reservationDate: reservationDate,
+          numOfGuests: numOfGuests,
+          remarks: remarks,
+        },
+        { where: { id: id } }
+      );
+
+      return res.json(updateReservation);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
   async deleteOne(req, res) {
     const id = req.params.reservationId;
     try {
