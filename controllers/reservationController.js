@@ -61,9 +61,31 @@ class ReservationsController extends BaseController {
           userId: user.id,
         },
         include: this.restaurantModel,
+        order: [["updatedAt", "DESC"]],
       });
 
       return res.json(getAllReservations);
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
+
+  async updateOne(req, res) {
+    const id = req.params.reservationId;
+    const { reservationDate, numOfGuests, remarks } = req.body;
+
+    try {
+      const updateReservation = await this.model.update(
+        {
+          reservationDate: reservationDate,
+          numOfGuests: numOfGuests,
+          remarks: remarks,
+        },
+        { where: { id: id } }
+      );
+
+      return res.json(updateReservation);
     } catch (err) {
       console.log(err);
       return res.status(400).json({ error: true, msg: err });
