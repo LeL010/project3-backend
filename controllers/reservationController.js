@@ -69,6 +69,30 @@ class ReservationsController extends BaseController {
       return res.status(400).json({ error: true, msg: err });
     }
   }
+
+  async deleteOne(req, res) {
+    const id = req.params.reservationId;
+    try {
+      // Check if the reservation exists
+      const existingReservation = await this.model.findByPk(id);
+      if (!existingReservation) {
+        return res
+          .status(404)
+          .json({ error: true, msg: "Reservation not found" });
+      }
+
+      // Delete the reservation
+      await existingReservation.destroy();
+
+      return res.json({
+        success: true,
+        msg: "Reservation deleted successfully",
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).json({ error: true, msg: err });
+    }
+  }
 }
 
 module.exports = ReservationsController;
