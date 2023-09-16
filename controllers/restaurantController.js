@@ -12,7 +12,6 @@ class RestaurantsController extends BaseController {
       const output = await this.model.findByPk(id);
       return res.json(output);
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: true, msg: err });
     }
   }
@@ -45,7 +44,6 @@ class RestaurantsController extends BaseController {
       });
       return res.json(output);
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: true, msg: err });
     }
   }
