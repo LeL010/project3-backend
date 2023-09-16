@@ -40,7 +40,6 @@ class ReservationsController extends BaseController {
       const output = await this.model.findByPk(id);
       return res.json(output);
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: true, msg: err });
     }
   }
@@ -66,7 +65,6 @@ class ReservationsController extends BaseController {
 
       return res.json(getAllReservations);
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: true, msg: err });
     }
   }
@@ -87,7 +85,6 @@ class ReservationsController extends BaseController {
 
       return res.json(updateReservation);
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: true, msg: err });
     }
   }
@@ -111,7 +108,6 @@ class ReservationsController extends BaseController {
         msg: "Reservation deleted successfully",
       });
     } catch (err) {
-      console.log(err);
       return res.status(400).json({ error: true, msg: err });
     }
   }
